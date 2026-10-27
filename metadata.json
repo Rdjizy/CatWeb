@@ -1,0 +1,6 @@
+{
+  "name": "Purrfect Haven: Cozy Cat Sanctuary",
+  "description": "A relaxing, pastel cat-care game. Feed, pet, decorate your sanctuary, adopt unique breeds, and raise cute kittens at your own peaceful pace.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
