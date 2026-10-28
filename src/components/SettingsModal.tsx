@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { X, Volume2, VolumeX, Music, CloudRain, Flame, RotateCcw, Heart, Palette, Sliders } from 'lucide-react';
+import { X, Volume2, VolumeX, Music, CloudRain, Flame, RotateCcw, Heart, Palette, Sliders, Smartphone } from 'lucide-react';
 import { sound } from '../utils/audio';
 
 interface SettingsModalProps {
@@ -23,6 +23,7 @@ interface SettingsModalProps {
     masterVolume?: number;
   }) => void;
   onOpenCustomizer?: () => void;
+  onOpenAndroidInstall?: () => void;
   onResetGame: () => void;
   onClose: () => void;
 }
@@ -36,6 +37,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   masterVolume,
   onUpdateSettings,
   onOpenCustomizer,
+  onOpenAndroidInstall,
   onResetGame,
   onClose,
 }) => {
@@ -259,6 +261,22 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               >
                 <Palette className="w-4 h-4 text-rose-600" />
                 <span>Customize Active Cat (Coat, Eyes, Ears)</span>
+              </button>
+            </div>
+          )}
+
+          {/* Android App / APK Option */}
+          {onOpenAndroidInstall && (
+            <div className="pt-1">
+              <button
+                onClick={() => {
+                  onClose();
+                  onOpenAndroidInstall();
+                }}
+                className="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 hover:from-emerald-100 hover:to-teal-100 text-stone-800 font-cozy text-xs font-bold border border-emerald-200/80 flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-xs"
+              >
+                <Smartphone className="w-4 h-4 text-emerald-600" />
+                <span>Android App & APK (Landscape Mode)</span>
               </button>
             </div>
           )}

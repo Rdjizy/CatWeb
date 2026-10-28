@@ -157,7 +157,7 @@ export const SanctuaryRoom: React.FC<SanctuaryRoomProps> = ({
           {/* Small thumbnail of user's image */}
           <div className="w-9 h-6 sm:w-11 sm:h-7 rounded overflow-hidden bg-white shadow-inner">
             <img
-              src="/assets/aistudio/image_01b5480e.png"
+              src={localStorage.getItem('purrfect_memory_photo') || '/assets/aistudio/download_94a4e50a.png'}
               alt="Memory Frame Thumbnail"
               className="w-full h-full object-cover group-hover/frame:scale-110 transition-transform"
             />

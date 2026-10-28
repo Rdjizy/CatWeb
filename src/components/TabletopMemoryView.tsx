@@ -40,7 +40,7 @@ export const TabletopMemoryView: React.FC<TabletopMemoryViewProps> = ({
   });
   const [isPhotoExpanded, setIsPhotoExpanded] = useState(false);
 
-  const displayImage = customPhotoUrl || '/assets/aistudio/image_01b5480e.png';
+  const displayImage = customPhotoUrl || '/assets/aistudio/download_94a4e50a.png';
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

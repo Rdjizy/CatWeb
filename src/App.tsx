@@ -20,6 +20,9 @@ import { BreedingModal } from './components/BreedingModal';
 import { CatCollectionModal } from './components/CatCollectionModal';
 import { SettingsModal } from './components/SettingsModal';
 import { CatCustomizer } from './components/CatCustomizer';
+import { AndroidInstallModal } from './components/AndroidInstallModal';
+import { LandscapeNotice } from './components/LandscapeNotice';
+import { usePWAInstall } from './hooks/usePWAInstall';
 import {
   Heart,
   Coins,
@@ -36,6 +39,7 @@ import {
   Egg,
   BedDouble,
   Paintbrush,
+  Smartphone,
 } from 'lucide-react';
 
 const LOCAL_STORAGE_KEY = 'purrfect_haven_save_v4';
@@ -95,8 +99,17 @@ export default function App() {
   const [isPetting, setIsPetting] = useState(false);
 
   const [activeModal, setActiveModal] = useState<
-    'none' | 'shop' | 'furniture' | 'breeding' | 'collection' | 'settings' | 'customizer' | 'room_decor'
+    'none' | 'shop' | 'furniture' | 'breeding' | 'collection' | 'settings' | 'customizer' | 'room_decor' | 'android_install'
   >('none');
+
+  const {
+    isInstallable,
+    isInstalled,
+    isAndroid,
+    isLandscape,
+    promptInstall,
+    lockLandscape,
+  } = usePWAInstall();
 
   const [offlineToast, setOfflineToast] = useState<{ coins: number } | null>(null);
 
@@ -637,6 +650,19 @@ export default function App() {
             )}
           </button>
 
+          {/* Android App & APK (Landscape) */}
+          <button
+            onClick={() => {
+              sound.playCutePetSound();
+              setActiveModal('android_install');
+            }}
+            title="Install Android App / APK (Landscape Mode)"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-cozy text-xs font-bold shadow-xs active:scale-95 transition-all cursor-pointer"
+          >
+            <Smartphone className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Android App</span>
+          </button>
+
           <button
             onClick={() => setActiveModal('settings')}
             title="Settings & Relaxing Ambience"
@@ -940,7 +966,19 @@ export default function App() {
             setGameState((prev) => ({ ...prev, ...settings }));
           }}
           onOpenCustomizer={() => setActiveModal('customizer')}
+          onOpenAndroidInstall={() => setActiveModal('android_install')}
           onResetGame={handleResetGame}
+          onClose={() => setActiveModal('none')}
+        />
+      )}
+
+      {activeModal === 'android_install' && (
+        <AndroidInstallModal
+          isInstallable={isInstallable}
+          isInstalled={isInstalled}
+          isAndroid={isAndroid}
+          onPromptInstall={promptInstall}
+          onLockLandscape={lockLandscape}
           onClose={() => setActiveModal('none')}
         />
       )}
@@ -963,6 +1001,12 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Landscape Orientation Recommendation for mobile portrait users */}
+      <LandscapeNotice
+        isLandscape={isLandscape}
+        onLockLandscape={lockLandscape}
+      />
     </div>
   );
 }
